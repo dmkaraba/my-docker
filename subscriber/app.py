@@ -13,7 +13,6 @@ def main_loop():
         while True:
             message = p.get_message()
             if message:
-                print(message)
                 f.write(f'{message["data"]}\n')
                 f.flush()
             time.sleep(0.001)

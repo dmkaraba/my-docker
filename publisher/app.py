@@ -2,6 +2,7 @@ import os
 import redis
 from flask import Flask, request, jsonify
 
+
 app = Flask(__name__)
 r = redis.Redis(host=os.environ['APP_REDIS_HOST'], port=os.environ['APP_REDIS_PORT'], db=0)
 

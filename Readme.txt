@@ -3,10 +3,10 @@ docker run --name redis-cnt -d redis
 
 # PUBLISHER DOCKER
 # build
-cd publicher
-docker build -t publicher .
+cd publisher
+docker build -t publisher .
 # run
-docker run --name pub-app --rm -p 5000:5000 --link redis-cnt:redis -d publicher
+docker run --name pub-app --rm -p 5000:5000 --link redis-cnt:redis -d publisher
 
 # SUBSCRIBER DOCKER
 # build
