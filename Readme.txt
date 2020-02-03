@@ -14,3 +14,6 @@ cd subscriber
 docker build -t subscriber .
 # run
 docker run --name sub-app --rm -v <this/directory/>:/var/log/ --link redis-cnt:redis -d subscriber
+
+Or build dockers and run them via launch_dockers.py
+It will run 3 dockers and start async_watchdog.py
