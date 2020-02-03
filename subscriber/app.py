@@ -1,14 +1,15 @@
+import os
 import time
 import redis
 
 
-r = redis.Redis(host='redis', port=6379, db=0)
+r = redis.Redis(host=os.environ['APP_REDIS_HOST'], port=os.environ['APP_REDIS_PORT'], db=0)
 p = r.pubsub(ignore_subscribe_messages=True)
-p.subscribe('flask-channel')
+p.subscribe(os.environ['APP_REDIS_CHANNEL'])
 
 
 def main_loop():
-    with open('/logs/log.txt', 'a+') as f:
+    with open('/var/log/log.txt', 'a+') as f:
         while True:
             message = p.get_message()
             if message:
