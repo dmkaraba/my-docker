@@ -1,22 +1,19 @@
 import sys
+import time
 import docker
-from time import sleep
 
 
-def container_watchdog(container_id):
+def container_watchdog(cnt_names):
     client = docker.from_env()
     while True:
-        container = client.containers.get(container_id)
-        if container.status == 'exited':
-            container.restart()
-            print(container.name, 'RESTARTING')
-        yield container.name, container.status
+        containers = [cnt for cnt in client.containers.list() if cnt.name in cnt_names]
+        for container in containers:
+            print('>', container.name, container.status)
+            if container.status == 'exited':
+                container.restart()
+                print('>>> RESTARTED')
+        time.sleep(0.05)
 
 
 if __name__ == '__main__':
-    tasks = [container_watchdog(cnt_id) for cnt_id in sys.argv[1:]]
-    while tasks:
-        task = tasks.pop(0)
-        next(task)
-        tasks.append(task)
-        sleep(0.5)
+    container_watchdog(sys.argv[1:])
