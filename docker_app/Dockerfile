@@ -5,5 +5,8 @@ ENV APP_REDIS_PORT=6379
 ENV APP_REDIS_CHANNEL=flask-channel
 WORKDIR /app
 ARG app
+ARG healthcheck
 COPY $app ./app.py
+COPY $healthcheck ./healthcheck.sh
+HEALTHCHECK CMD ./healthcheck.sh
 ENTRYPOINT [ "python", "app.py" ]

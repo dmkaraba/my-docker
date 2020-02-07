@@ -1,0 +1,1 @@
+ls /var/log/log.txt || exit 1
