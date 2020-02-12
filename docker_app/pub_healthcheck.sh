@@ -1,1 +1,1 @@
-curl localhost:5000 || exit 1
+curl localhost:5000/healthcheck || exit 1

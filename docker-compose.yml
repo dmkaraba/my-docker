@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+
+  redis-cnt:
+    build: docker_redis/
+    image: redis:latest
+
+  pub-app:
+    build:
+      context: ./docker_app
+    links:
+      - redis-cnt:redis
+    ports:
+      - "5000:5000"
+    image: publisher:latest
+    depends_on:
+      - redis-cnt
+
+  sub-app:
+    build:
+      context: ./docker_app
+    links:
+      - redis-cnt:redis
+    image: subscriber:latest
+    depends_on:
+      - redis-cnt
+    volumes:
+      - D:/dev/my-docker/docker_app/:/var/log/
